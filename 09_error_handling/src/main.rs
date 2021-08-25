@@ -12,7 +12,7 @@ use std::fs::File;
 fn main() -> Result<(), Box<dyn Error>> {
     let f = File::open("hello.txt")?;
     Ok(())
-} // for these pirposes, Box<dyn Error>> means "any error"
+} // for these purposes, Box<dyn Error>> means "any error"
 
 fn trigger_panic() {
     panic!("Crash and burn");

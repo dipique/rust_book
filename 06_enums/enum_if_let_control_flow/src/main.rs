@@ -34,4 +34,10 @@ fn concise_alt(some_u8: Option<u8>) {
     } else {
         println!("No value was provided");
     }
+
+    // coming back later: if let destructures the value
+    // on the right side of the = sign, so the above means
+    // to destructure some_u8 and create a variable with
+    // its contents as u8_val, which can be used inside
+    // the brackets
 }

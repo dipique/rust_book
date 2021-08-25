@@ -106,7 +106,7 @@ fn str_ex() {
     // create a string literal (&str); value is known at run-time and is hard-coded into executable
     let s = "hello";
 
-    let s = String::from(s); // :: naivates the namespace; I think this is a static method
+    let s = String::from(s); // :: navigates the namespace; I think this is a static method
     // this has created a String object; the stack contains ptr|len|capacity
     println!("{}", s); // println!(s) does not work; it must use a string literal to format with
 

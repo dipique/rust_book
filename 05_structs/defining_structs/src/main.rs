@@ -18,7 +18,8 @@ fn main() {
         email: String::from("dipique@outlook.com"),
         ..u // uses the values from u other than those specified
     }; // note that unlike js, username and email are not overwritten
-       // even though u has fields with the same name
+       // even though u has fields with the same name; instead, anything
+       // that is specified has precedence
     
     // tuple-like way of defining structs
     struct Color(i32, i32, i32);
