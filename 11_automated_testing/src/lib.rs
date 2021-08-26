@@ -26,7 +26,13 @@ impl Guess {
     }
 }
 
-#[cfg(test)]
+pub fn add_two(val: i32) -> i32 {
+    val + 2
+}
+
+// having a module like this in each file that contains
+// unit tests is the convention
+#[cfg(test)] // this is specifying a configuration
 mod tests {
     #[test]
     fn it_works() {
@@ -44,6 +50,8 @@ mod tests {
     }
 
     use super::*;
+    // note that tests written with this convention (module at the bottom
+    // of the file) can test both private and public functions
 
     #[test]
     fn larger_can_hold_smaller() {
@@ -106,8 +114,28 @@ mod tests {
             Err("two plus two does not equal 4".into())
         }
     }
+
+    #[test]
+    #[ignore] // this will be ignored unless specified by name
+    fn expensive_test() {
+        // code that takes an hour to run
+    }
+
+    // to run ignored tests only
+    //      cargo test -- --ignored
+
 }
 
 // to set the # of test threads (by default it is run in parallel):
 //      cargo test -- --test-threads=1
 // not sure what the extra double dash does but it is required
+
+// to see values for passing tests:
+//      cargo test -- --show-output
+
+// to run a specific test by name
+//      cargo test result_test
+
+// it will run any test that contains the string, so to run both of
+// the rectangle "hold" tests, we could use:
+//      cargo test hold
