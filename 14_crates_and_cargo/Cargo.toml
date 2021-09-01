@@ -1,9 +1,9 @@
 [package]
-name = "crates_and_cargo_a_test_of_using_crate_io_by_me_dipique"
+name = "crates_and_cargo_a_test_by_me_dipique"
 version = "0.1.0"
 authors = ["Daniel Kaschel <dipique@gmail.com>"]
 edition = "2018"
-decription = "Experiment with creating a crate"
+description = "Experiment with creating a crate"
 license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
