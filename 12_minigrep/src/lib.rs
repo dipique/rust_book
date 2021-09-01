@@ -10,14 +10,18 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Config, String> {
-        // validate args
-        if args.len() < 3 {
-            return Err(format!("Expected at least a query and a filename argument, but instead received: {:?}", args));
-        }
+    pub fn new(mut args: env::Args) -> Result<Config, &'static str> {
+        args.next(); // move past executable name
 
-        let query = args[1].clone();
-        let filename = args[2].clone();
+        let query =  match args.next() {
+            Some(arg) => arg,
+            None => return Err("Expected a query string"),
+        };
+
+        let filename =  match args.next() {
+            Some(arg) => arg,
+            None => return Err("Expected a filename")
+        };
 
         let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
 
@@ -43,8 +47,33 @@ pub fn run(cfg: Config) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+// Below is an example of documentation for a function. # Examples section is used, but other
+// common sections include # Panics, # Errors (if Result is returned), and # Safety (if there is unsafe code)
+
+// HOLY SHIT the code here actually gets run as a test HOW COOL IS THIS
+
+// I think this only works from a library? Not sure. Apparently you can do this in python as well.
+
+/// Searches a multi-line string for a query and returns lines containing that string
+///
+/// # Examples
+///
+/// ```
+/// let q = "my query";
+/// let ml_str = "\
+/// this string contains
+/// my query which
+/// is awesome.";
+///
+/// assert_eq!(vec!["my query which"], minigrep::search(q, ml_str, true));
+/// ```
 pub fn search<'a>(query: &str, contents: &'a str, case_sensitive: bool) -> Vec<&'a str> {
-    let stz_qry = if case_sensitive { query.to_string() } else { query.to_lowercase() };
+    let stz_qry = if case_sensitive {
+        query.to_string()
+    } else {
+        query.to_lowercase()
+    };
+
     contents
         .lines()
         .filter(|line| if case_sensitive {
@@ -91,6 +120,6 @@ safe, fast, productive.
 Pick three.
 Trust me.";
 
-        assert_eq!(vec!["Rust:", "Trust me."], search(qry, contents, true));
+        assert_eq!(vec!["Rust:", "Trust me."], search(qry, contents, false));
     }
 }
